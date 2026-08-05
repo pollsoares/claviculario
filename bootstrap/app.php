@@ -12,7 +12,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Define os redirecionamentos padrão de autenticação
+        $middleware->redirectTo(
+            guests: '/login',         // Para onde mandar quem NÃO está logado
+            users: '/dashboard'       // Para onde mandar quem JÁ está logado (substitui o antigo RouteServiceProvider::HOME)
+        );
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

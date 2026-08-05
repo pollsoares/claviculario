@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('keys', function (Blueprint $table) {
             $table->id();
-            $table->string('room_number')->unique(); // Ex: "101", "102-B"
-            $table->string('description')->nullable();
-            $table->enum('status', ['available', 'borrowed'])->default('available');
+            $table->string('number');        // Ex: "101", "A-02"
+            $table->string('description');   // Ex: "Sala de Reuniões", "Laboratório 3"
+            $table->boolean('is_available')->default(true); // <- ADICIONAR ESTA COLUNA
             $table->timestamps();
         });
     }

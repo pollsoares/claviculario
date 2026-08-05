@@ -42,6 +42,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+    // Novo Guard (Controladores)
+        'controlador' => [
+            'driver' => 'session',
+            'provider' => 'controladores',
+        ],
     ],
 
     /*
@@ -67,10 +73,11 @@ return [
             'model' => env('AUTH_MODEL', User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        // Provider de Controladores
+        'controladores' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Controlador::class,
+        ],
     ],
 
     /*

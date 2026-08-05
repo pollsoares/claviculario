@@ -10,7 +10,8 @@ class KeyController extends Controller
     // Listagem e Formulário de Cadastro
     public function index()
     {
-        $keys = Key::orderBy('room_number')->get();
+        $keys = Key::orderBy('number', 'asc')->get();
+
         return view('keys.index', compact('keys'));
     }
 
@@ -18,17 +19,16 @@ class KeyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'room_number' => 'required|string|max:50|unique:keys,room_number',
+            'number' => 'required|string|max:50|unique:keys,number',
             'description' => 'nullable|string|max:255',
         ], [
-            'room_number.unique' => 'Já existe uma chave cadastrada para esta sala.',
-            'room_number.required' => 'O número da sala é obrigatório.',
+            'number.unique' => 'Já existe uma chave cadastrada para esta sala.',
+            'number.required' => 'O número da sala é obrigatório.',
         ]);
 
         Key::create([
-            'room_number' => $request->room_number,
+            'number' => $request->number,
             'description' => $request->description,
-            'status' => 'available',
         ]);
 
         return redirect()->back()->with('success', 'Chave cadastrada com sucesso!');
@@ -37,7 +37,7 @@ class KeyController extends Controller
     // Deletar Chave (se não estiver emprestada)
     public function destroy(Key $key)
     {
-        if ($key->status === 'borrowed') {
+        if ($key->is_available) {
             return redirect()->back()->with('error', 'Não é possível excluir uma chave que está emprestada no momento.');
         }
 

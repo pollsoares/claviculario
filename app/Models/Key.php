@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Attributes\Table;
 use Illuminate\Database\Eloquent\Model;
 
 #[Table('keys')]
-#[Fillable('room_number','description','status')]
+#[Fillable('number','description','is_available')]
 class Key extends Model
 {
-    //
+    protected $casts = [
+        'is_available' => 'boolean',
+    ];
 }

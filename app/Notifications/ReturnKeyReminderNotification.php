@@ -28,7 +28,7 @@ class ReturnKeyReminderNotification extends Notification
         return (new MailMessage)
             ->subject('Lembrete: Devolução de Chave Pendente')
             ->greeting("Olá, {$notifiable->name}!")
-            ->line("Identificamos que você retirou a chave da **Sala {$this->loan->key->room_number}** hoje às {$this->loan->borrowed_at->format('H:i')}.")
+            ->line("Identificamos que você retirou a chave da **Sala {$this->loan->key->number}** hoje às {$this->loan->borrowed_at->format('H:i')}.")
             ->line('Por favor, lembre-se de devolver a chave na portaria/recepção antes de encerrar o expediente.')
             ->salutation('Atenciosamente, Administração do Prédio');
     }
